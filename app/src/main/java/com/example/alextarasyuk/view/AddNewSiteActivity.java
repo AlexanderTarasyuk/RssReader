@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.alextarasyuk.db.RSSDatabaseHelper;
 import com.example.alextarasyuk.model.RSSFeed;
 import com.example.alextarasyuk.model.Website;
 import com.example.alextarasyuk.rssreader.R;
@@ -106,7 +107,7 @@ public class AddNewSiteActivity extends AppCompatActivity {
                         rssFeed.getTitle() + "" + rssFeed.getLink() + ""
                                 + rssFeed.getDescription() + ""
                                 + rssFeed.getLanguage());
-                RSSDatabaseHandler rssDb = new RSSDatabaseHandler(
+                RSSDatabaseHelper rssDb = new RSSDatabaseHelper(
                         getApplicationContext());
                 Website site = new Website(rssFeed.getTitle(), rssFeed.getLink(), rssFeed.getRssLink(),
                         rssFeed.getDescription());

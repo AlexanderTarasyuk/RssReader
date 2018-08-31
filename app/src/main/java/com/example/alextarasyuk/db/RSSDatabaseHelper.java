@@ -1,5 +1,6 @@
 package com.example.alextarasyuk.db;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -121,5 +122,43 @@ public class RSSDatabaseHelper extends SQLiteOpenHelper {
         // return contact list
         return siteList;
     }
+
+    public void addSite(Website site) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_TITLE, site.getTitle()); // site title
+        values.put(KEY_LINK, site.getLink()); // site url
+        values.put(KEY_RSS_LINK, site.getRSSLink()); // rss link url
+        values.put(KEY_DESCRIPTION, site.getDescription()); // site description
+
+        // Check if row already existed in database
+        if (!isSiteExists(db, site.getRSSLink())) {
+            // site not existed, create a new row
+            db.insert(TABLE_RSS, null, values);
+            db.close();
+        } else {
+            // site already existed update the row
+            updateSite(site);
+            db.close();
+    }
+
+
 }
+    public int updateSite(Website site) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_TITLE, site.getTitle());
+        values.put(KEY_LINK, site.getLink());
+        values.put(KEY_RSS_LINK, site.getRSSLink());
+        values.put(KEY_DESCRIPTION, site.getDescription());
+
+        // updating row return
+        int update = db.update(TABLE_RSS, values, KEY_RSS_LINK + " = ?",
+                new String[] { String.valueOf(site.getRSSLink()) });
+        db.close();
+        return update;
+
+    }}
 

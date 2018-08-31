@@ -1,10 +1,14 @@
 package com.example.alextarasyuk.view;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -24,12 +28,7 @@ import com.example.alextarasyuk.model.Website;
 import com.example.alextarasyuk.rssreader.R;
 import com.example.alextarasyuk.rssreader.RSSParser;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-public class MainActivity extends AppCompatActivity {
-
+public class AndroidRSSReaderApplicationActivity extends Activity {
     // Progress Dialog
     private ProgressDialog pDialog;
 
@@ -172,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             pDialog = new ProgressDialog(
-                    MainActivity.this);
+                    AndroidRSSReaderApplicationActivity.this);
             pDialog.setMessage("Loading websites ...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);
@@ -219,7 +218,7 @@ public class MainActivity extends AppCompatActivity {
                      * Updating list view with websites
                      * */
                     ListAdapter adapter = new SimpleAdapter(
-                            MainActivity.this,
+                            AndroidRSSReaderApplicationActivity.this,
                             rssFeedList, R.layout.site_list_row,
                             new String[]{TAG_ID, TAG_TITLE, TAG_LINK},
                             new int[]{R.id.sqlite_id, R.id.title, R.id.link});
@@ -241,4 +240,3 @@ public class MainActivity extends AppCompatActivity {
 
     }
 }
-
